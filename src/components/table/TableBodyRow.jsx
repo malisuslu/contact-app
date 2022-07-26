@@ -3,7 +3,7 @@ import { MdOutlineDeleteForever } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase-config";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../form/Modal";
 import toast from "react-hot-toast";
 

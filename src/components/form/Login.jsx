@@ -16,7 +16,7 @@ import { auth, db } from "../../firebase-config";
 import toast from "react-hot-toast";
 import { serverTimestamp, setDoc } from "firebase/firestore";
 
-function Login({ setNotRegistered }) {
+function Login({ setToReset, setNotRegistered }) {
   const [remember, setRemember] = useState(false);
   const [userInfo, setUserInfo] = useState({
     email: "",
@@ -35,12 +35,6 @@ function Login({ setNotRegistered }) {
         const user = userCredential.user;
         toast.success("User logged in successfully");
         // ...
-      })
-      .then(() => {
-        // add last login timestamp to user
-        const user = auth.currentUser;
-        const lastLogin = serverTimestamp();
-        setDoc(db, `users/${user.uid}`, { lastLogin });
       })
       .catch((error) => {
         //   const errorCode = error.code;
@@ -72,7 +66,7 @@ function Login({ setNotRegistered }) {
   return (
     <div className="md:mr-4 mb-8 w-[90vw] md:max-w-xs">
       <h1 className="w-full text-center text-2xl bg-slate-400 rounded-xl shadow-2xl mb-4">
-        SING IN
+        SIGN IN
       </h1>
 
       <form
@@ -144,6 +138,15 @@ function Login({ setNotRegistered }) {
             onClick={() => setNotRegistered(true)}
           >
             Register
+          </p>
+        </div>
+        <div className="flex justify-start my-4">
+          <span className="text-white text-sm">Forgot your passwor?</span>
+          <p
+            className="text-blue-600 text-sm hover:underline hover:text-blue-700 cursor-pointer"
+            onClick={() => setToReset(true)}
+          >
+            Reset
           </p>
         </div>
       </form>

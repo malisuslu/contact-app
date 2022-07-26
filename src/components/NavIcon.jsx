@@ -12,12 +12,14 @@ function Navbar() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        if (user.displayName) {
+        if (user.displayName && user.email && user.photoURL) {
           console.log(user);
           setUserName(user.displayName);
+          setUserEmail(user.email);
+          setUserPhoto(user.photoURL);
         } else {
           let interval = setInterval(() => {
-            if (user.displayName) {
+            if (user.displayName && user.email && user.photoURL) {
               clearInterval(interval);
               setUserName(user.displayName);
             }

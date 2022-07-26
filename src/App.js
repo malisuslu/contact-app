@@ -1,16 +1,12 @@
-import Form from "./components/form/Form";
-import Table from "./components/table/Table";
-import NavIcon from "./components/NavIcon";
-import { Toaster } from "react-hot-toast";
-import { useEffect, useState } from "react";
-import Login from "./components/form/Login";
-import Register from "./components/form/Register";
 import { onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
+import Main from "./components/Main";
 import { auth } from "./firebase-config";
+// import NavIcon from "./components/NavIcon";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState();
-  const [isRegistered, setIsRegistered] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(auth.currentUser);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -22,29 +18,18 @@ function App() {
     });
   }, [isLoggedIn]);
 
-  if (isLoggedIn === undefined) {
-    return (
-      <div className="text-5xl text-green-500 flex justify-center items-center mt-56">
-        Directing...
-      </div>
-    );
-  }
-
   return (
     <>
-      {isLoggedIn && <NavIcon />}
-      <div className="w-screen pt-20 flex flex-col justify-center items-center md:items-start md:flex-row">
-        <Toaster />
-        {isLoggedIn ? (
-          <>
-            <Form />
-            <Table />
-          </>
-        ) : isRegistered ? (
-          <Login setNotRegistered={() => setIsRegistered(false)} />
-        ) : (
-          <Register setRegistered={() => setIsRegistered(true)} />
-        )}
+      <Toaster />
+      {/* <NavIcon /> */}
+      <div
+        className={
+          isLoggedIn
+            ? ""
+            : "w-screen pt-20 flex flex-col justify-center items-center md:items-start md:flex-row"
+        }
+      >
+        <Main />
       </div>
     </>
   );
