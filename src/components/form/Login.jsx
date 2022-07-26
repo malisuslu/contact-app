@@ -106,7 +106,8 @@ function Login({ setToReset, setNotRegistered }) {
           children={"Sign In"}
           type="submit"
         />
-        -------------------- OR ---------------------
+        <p className="text-center">------------ OR -------------</p>
+
         <div
           className="flex w-full text-blue-500 font-bold bg-green-300 py-1 rounded-lg justify-center mt-4 cursor-pointer"
           onClick={loginWithGoogle}
