@@ -1,17 +1,13 @@
 import { BsGenderAmbiguous } from "react-icons/bs";
 
 function SelectOption({ className, onChange, required }) {
-  const handleChange = (e) => {
-    onChange(e.target.value);
-  };
-
   return (
     <div className={className}>
       <BsGenderAmbiguous className="text-slate-400 text-2xl" />
       <select
         id="gender"
         className="w-full focus:bg-orange-100 focus:outline-none"
-        onChange={handleChange}
+        onChange={onChange}
         required={required}
       >
         <option disabled selected value="not defined">

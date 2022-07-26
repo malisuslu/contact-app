@@ -1,6 +1,12 @@
 import TableBodyRow from "./TableBodyRow";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { db } from "../../firebase-config";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { auth, db } from "../../firebase-config";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -18,25 +24,19 @@ function TableBody() {
   };
 
   const getContactsOnSnapshot = async () => {
-    const q = query(collection(db, "contacts"), orderBy("timestamp", "asc"));
-    try {
-      onSnapshot(q, (snapShot) => {
-        const contacts = snapShot.docs.map((doc) => {
-          return {
-            id: doc.id,
-            ...doc.data(),
-          };
-        });
-        setContacts(contacts);
+    const q = query(
+      collection(db, auth.currentUser.email),
+      orderBy("timestamp", "asc")
+    );
+    onSnapshot(q, (snapshot) => {
+      const contacts = snapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
       });
-    } catch (e) {
-      notifyE(`Error fetching contacts: ${e}`);
-    }
+      setContacts(contacts);
+    });
   };
 
-  useEffect(() => {
-    getContactsOnSnapshot();
-  }, []);
+  getContactsOnSnapshot();
 
   return (
     <tbody className="border-b border-white" ref={parent}>

@@ -5,7 +5,7 @@ import { BsPersonFill } from "react-icons/bs";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../firebase-config";
+import { auth, db } from "../../firebase-config";
 import toast from "react-hot-toast";
 
 function Form() {
@@ -23,15 +23,10 @@ function Form() {
     toast.error(msg);
   };
 
-  const handleChange = (newgender) => {
-    setContact({ ...contact, gender: newgender });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // console.log(contact);
-      await addDoc(collection(db, "contacts"), {
+      await addDoc(collection(db, auth.currentUser.email), {
         ...contact,
         timestamp: serverTimestamp(),
       });
@@ -84,7 +79,7 @@ function Form() {
         <SelectOption
           className="flex bg-white px-2 py-2 rounded-lg my-2 focus-within:bg-orange-100 w-full focus-within:ring-4"
           value={contact.gender}
-          onChange={handleChange}
+          onChange={(e) => setContact({ ...contact, gender: e.target.value })}
           required
         />
         <Button

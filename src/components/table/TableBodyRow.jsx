@@ -2,18 +2,18 @@ import TableBodyRowCol from "./TableBodyRowCol";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase-config";
+import { auth, db } from "../../firebase-config";
 import { useState } from "react";
-import Modal from "../Modal";
+import Modal from "../form/Modal";
 import toast from "react-hot-toast";
 
 function TableBodyRow({ num, name, phone, gender, id }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [currenId, setCurrentId] = useState("");
+  const [currentId, setCurrentId] = useState("");
 
   async function remove(e) {
     const id = e.target.id ? e.target.id : e.target.parentElement.id;
-    const selectedDoc = doc(db, "contacts", id);
+    const selectedDoc = doc(db, auth.currentUser.email, id);
     await deleteDoc(selectedDoc);
   }
 
@@ -26,8 +26,8 @@ function TableBodyRow({ num, name, phone, gender, id }) {
   };
 
   async function handleEdit(newInfo) {
-    const id = currenId;
-    const selectedDoc = doc(db, "contacts", id);
+    const id = currentId;
+    const selectedDoc = doc(db, auth.currentUser.email, id);
     try {
       await updateDoc(selectedDoc, newInfo);
       setIsEditing(false);
