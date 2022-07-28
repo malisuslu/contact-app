@@ -1,11 +1,10 @@
-import Form from "../components/form/Form";
-import Table from "../components/table/Table";
-import NavIcon from "../components/NavIcon";
-import Reset from "../components/form/Reset";
-import { Toaster } from "react-hot-toast";
+import Form from "./form/Form";
+import Table from "./table/Table";
+import NavIcon from "./NavIcon";
+import Reset from "./form/Reset";
 import { useEffect, useState } from "react";
-import Login from "../components/form/Login";
-import Register from "../components/form/Register";
+import Login from "./form/Login";
+import Register from "./form/Register";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
 
@@ -22,7 +21,7 @@ function Main() {
         setIsLoggedIn(false);
       }
     });
-  }, [isLoggedIn]);
+  }, []);
 
   if (isLoggedIn === undefined) {
     return (

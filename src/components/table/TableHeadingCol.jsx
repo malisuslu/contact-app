@@ -1,8 +1,11 @@
-function TableHeadingCol({ children }) {
+function TableHeadingCol({ children, className }) {
   return (
     <th
       scope="col"
-      className="text-sm font-medium text-white md:px-6 py-4 text-left"
+      className={
+        "text-sm font-medium text-white py-4 text-center border-b-4 border-white " +
+        className
+      }
     >
       {children}
     </th>

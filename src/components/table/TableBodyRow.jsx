@@ -1,9 +1,9 @@
 import TableBodyRowCol from "./TableBodyRowCol";
 import { MdOutlineDeleteForever } from "react-icons/md";
-import { FiEdit } from "react-icons/fi";
+import { MdEdit } from "react-icons/md";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase-config";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "../form/Modal";
 import toast from "react-hot-toast";
 
@@ -44,21 +44,23 @@ function TableBodyRow({ num, name, phone, gender, id }) {
   return (
     <>
       {isEditing && <Modal onClick={closeModal} onEdit={handleEdit} />}
-      <tr className="border-b border-white">
+      <tr>
         <TableBodyRowCol children={num} />
         <TableBodyRowCol children={name} />
         <TableBodyRowCol children={phone} />
-        <TableBodyRowCol children={gender} />
+        <TableBodyRowCol
+          children={window.innerWidth > "768" ? gender : gender[0]}
+        />
         <TableBodyRowCol>
           <MdOutlineDeleteForever
-            className="text-red-500 text-2xl cursor-pointer hover:scale-150 z-20"
+            className="text-red-300 text-2xl cursor-pointer hover:scale-150 transition-all ease-in-out hover:transition-all hover:ease-in-out mx-auto md:mx-0"
             id={id}
             onClick={remove}
           />
         </TableBodyRowCol>
         <TableBodyRowCol>
-          <FiEdit
-            className=" text-green-300 text-2xl cursor-pointer"
+          <MdEdit
+            className=" text-green-300 text-2xl cursor-pointer hover:scale-150 transition-all ease-in-out hover:transition-all hover:ease-in-out mx-auto md:mx-0"
             id={id}
             onClick={() => {
               setIsEditing(true);

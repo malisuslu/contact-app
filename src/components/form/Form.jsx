@@ -42,7 +42,7 @@ function Form() {
   };
 
   return (
-    <div className="md:mr-4 mb-8 w-[90vw] md:max-w-xs">
+    <div className="md:mr-4 mb-4 w-[90vw] md:max-w-xs">
       <h1 className="w-full text-center text-2xl bg-slate-400 rounded-xl shadow-2xl mb-4">
         ADD CONTACT
       </h1>
@@ -83,7 +83,7 @@ function Form() {
           required
         />
         <Button
-          className="w-full bg-blue-500 text-white py-1 rounded-lg"
+          className="w-full bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600"
           children={"ADD"}
           type="submit"
         />

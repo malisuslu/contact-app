@@ -10,24 +10,21 @@ function Navbar() {
   const [userPhoto, setUserPhoto] = useState(auth.currentUser.photoURL);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        if (user.displayName && user.email && user.photoURL) {
-          console.log(user);
-          setUserName(user.displayName);
-          setUserEmail(user.email);
-          setUserPhoto(user.photoURL);
-        } else {
-          let interval = setInterval(() => {
-            if (user.displayName && user.email && user.photoURL) {
-              clearInterval(interval);
-              setUserName(user.displayName);
-            }
-          }, 100);
+    if (auth.currentUser) {
+      let interval = setInterval(() => {
+        if (
+          auth.currentUser.displayName &&
+          auth.currentUser.email &&
+          auth.currentUser.photoURL
+        ) {
+          clearInterval(interval);
+          setUserName(auth.currentUser.displayName);
+          setUserEmail(auth.currentUser.email);
+          setUserPhoto(auth.currentUser.photoURL);
         }
-      }
-    });
-  }, []);
+      }, 100);
+    }
+  }, [userName, userEmail, userPhoto]);
 
   const logOut = (e) => {
     e.preventDefault();
@@ -53,7 +50,7 @@ function Navbar() {
       {/* <!-- Dropdown menu --> */}
       <div className="flex justify-end items-center md:order-2 mt-6 ml-[calc(100vw-72px)]">
         <img
-          className="w-[48px] h-[48px] min-w-[48px] min-h-[48px] rounded-full md:mr-0 hover:ring-4 hover:ring-gray-300 dark:hover:ring-gray-600 object-cover object-center cursor-pointer"
+          className="md:w-[48px] md:h-[48px] md:min-w-[48px] md:min-h-[48px] h-12 w-12 rounded-full md:mr-0 hover:ring-4 hover:ring-gray-300 dark:hover:ring-gray-600 object-cover object-center cursor-pointer"
           src={
             userPhoto ||
             "https://qph.cf2.quoracdn.net/main-qimg-f86719b5cbde69c03e6d06d58b99708e.webp"

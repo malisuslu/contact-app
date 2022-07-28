@@ -16,7 +16,7 @@ function App() {
         setIsLoggedIn(false);
       }
     });
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <>
