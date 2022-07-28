@@ -49,7 +49,9 @@ function TableBodyRow({ num, name, phone, gender, id }) {
         <TableBodyRowCol children={name} />
         <TableBodyRowCol children={phone} />
         <TableBodyRowCol
-          children={window.innerWidth > "768" ? gender : gender[0]}
+          children={
+            window.innerWidth > "768" ? gender : gender.toUpperCase()[0]
+          }
         />
         <TableBodyRowCol>
           <MdOutlineDeleteForever
