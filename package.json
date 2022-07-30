@@ -2,6 +2,10 @@
   "homepage": "https://malisuslu.github.io/contact-app/",
   "name": "contact-app",
   "version": "0.1.0",
+  "engines": {
+    "node": "16.15.0",
+    "npm": "8.12.1"
+  }
   "private": true,
   "dependencies": {
     "@formkit/auto-animate": "^1.0.0-beta.1",
